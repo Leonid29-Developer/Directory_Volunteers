@@ -24,9 +24,17 @@ namespace DirectoryOfVolunteers
             bool T = true;
             if (TB_Login.Text != "")
             {
-                string SQL = $"SELECT [Nickname],[Password] FROM [DirectoryOfVolunteers].[dbo].[DataForAccess] WHERE [Login] = '{TB_Login.Text}';"; // SQL-запрос
-                SqlDataAdapter data = new SqlDataAdapter(SQL, ConnectString); DataSet Set = new DataSet(); data.Fill(Set, "[]"); DATA.DataSource = Set.Tables["[]"].DefaultView; DATA.DataSource = Set.Tables["[]"].DefaultView;
-                if (DATA.RowCount - 1 > 0) if (TB_Password.Text == DATA.Rows[0].Cells[1].Value.ToString()) { Main.Nickname = DATA.Rows[0].Cells[0].Value.ToString(); Hide(); new Main().ShowDialog(); } else T = false;
+                string Nickname = null, Password = null;
+                using (SqlConnection SQL_Connection = new SqlConnection(ConnectString))
+                {
+                    SQL_Connection.Open();
+                    string Request = $"EXEC [DirectoryOfVolunteers].[dbo].[Authorization] @Login = '{TB_Login.Text}';"; // SQL-запрос
+                    SqlCommand Command = new SqlCommand(Request, SQL_Connection); SqlDataReader Reader = Command.ExecuteReader();
+                    while (Reader.Read()) { Nickname = (string)Reader.GetValue(0); Password = (string)Reader.GetValue(1); }
+                    SQL_Connection.Close();
+                }
+
+                if (DATA.RowCount - 1 > 0) if (TB_Password.Text == Password) { Main.Nickname = Nickname; Hide(); new Main().ShowDialog(); } else T = false;
             }
             else T = false; if (T == false) MessageBox.Show("Неверные данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }

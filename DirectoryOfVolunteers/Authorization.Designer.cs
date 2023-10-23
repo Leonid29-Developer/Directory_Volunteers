@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Authorization));
             this.label1 = new System.Windows.Forms.Label();
             this.TB_Login = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -139,10 +140,10 @@
             this.Controls.Add(this.TB_Login);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Button_Input);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Authorization";
-            this.ShowIcon = false;
             ((System.ComponentModel.ISupportInitialize)(this.DATA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
