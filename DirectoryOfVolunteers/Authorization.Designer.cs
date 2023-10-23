@@ -34,10 +34,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.TB_Password = new System.Windows.Forms.TextBox();
-            this.DATA = new System.Windows.Forms.DataGridView();
             this.Button_Input = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.DATA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,15 +92,6 @@
             this.TB_Password.Size = new System.Drawing.Size(184, 26);
             this.TB_Password.TabIndex = 3;
             // 
-            // DATA
-            // 
-            this.DATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DATA.Location = new System.Drawing.Point(12, 12);
-            this.DATA.Name = "DATA";
-            this.DATA.Size = new System.Drawing.Size(10, 10);
-            this.DATA.TabIndex = 6;
-            this.DATA.Visible = false;
-            // 
             // Button_Input
             // 
             this.Button_Input.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -133,7 +122,6 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(344, 450);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.DATA);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.TB_Password);
             this.Controls.Add(this.label2);
@@ -144,7 +132,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Authorization";
-            ((System.ComponentModel.ISupportInitialize)(this.DATA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -158,7 +145,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox TB_Password;
-        private System.Windows.Forms.DataGridView DATA;
         private System.Windows.Forms.Label Button_Input;
         private System.Windows.Forms.PictureBox pictureBox1;
     }

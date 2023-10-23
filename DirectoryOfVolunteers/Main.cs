@@ -25,10 +25,7 @@ namespace DirectoryOfVolunteers
             using (SqlConnection SQL_Connection = new SqlConnection(Authorization.ConnectString))
             {
                 SQL_Connection.Open();
-                string Request = $"SELECT [Nickname], " +
-                                 $"(SELECT [Image] FROM [DirectoryOfVolunteers].[dbo].[Images] WHERE [ID] = [ProfilePicture]) AS [ProfilePicture], " +
-                                 $"(SELECT [Surname] + ' ' + [Name] + ' ' + [MiddleName] FROM [DirectoryOfVolunteers].[dbo].[FIO] WHERE [ID] = [FIO]) AS [FIO] " +
-                                 $"FROM [DirectoryOfVolunteers].[dbo].[UserData]"; // SQL-запрос
+                string Request = $"EXEC [DirectoryOfVolunteers].[dbo].[UserData_ALL]"; // SQL-запрос
                 SqlCommand Command = new SqlCommand(Request, SQL_Connection); SqlDataReader Reader = Command.ExecuteReader();
                 while (Reader.Read()) Users.Add(new UserData((string)Reader.GetValue(0), (byte[])Reader.GetValue(1), (string)Reader.GetValue(2)));
                 SQL_Connection.Close();
@@ -44,20 +41,6 @@ namespace DirectoryOfVolunteers
             //    string Request = $"UPDATE [DirectoryOfVolunteers].[dbo].[Images] SET [Image] = @ImageData WHERE [ID] = 'I1';"; // SQL-запрос
             //    SQL_Command.Parameters.Add("@ImageData", SqlDbType.Image, 1000000); SQL_Command.Parameters["@ImageData"].Value = imageData;
             //    SQL_Command.CommandText = Request; SQL_Command.ExecuteNonQuery(); SQL_Connection.Close();
-            //}
-
-            ////Использование без DataGridView
-            ////DataTable matcher_query = new DataTable(); SqlDataAdapter da = new SqlDataAdapter(cmd); da.Fill(dataTable);
-
-            ////Загрузка изображения
-            //List<byte[]> Im = new List<byte[]>();
-            //using (SqlConnection SQL_Connection = new SqlConnection(Authorization.ConnectString))
-            //{
-            //    SQL_Connection.Open();
-            //    string Request = $"SELECT [Image] FROM [DirectoryOfVolunteers].[dbo].[Images];"; // SQL-запрос
-            //    SqlCommand Command = new SqlCommand(Request, SQL_Connection); SqlDataReader Reader = Command.ExecuteReader();
-            //    while (Reader.Read()) { Im.Add((byte[])Reader.GetValue(0)); }
-            //    SQL_Connection.Close();
             //}
 
             //for (int i = 0; i < Users.Count; i++) using (MemoryStream ms = new MemoryStream(Users[i].ProfilePicture, 0, Users[i].ProfilePicture.Length))

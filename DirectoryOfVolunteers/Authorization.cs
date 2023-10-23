@@ -34,7 +34,7 @@ namespace DirectoryOfVolunteers
                     SQL_Connection.Close();
                 }
 
-                if (DATA.RowCount - 1 > 0) if (TB_Password.Text == Password) { Main.Nickname = Nickname; Hide(); new Main().ShowDialog(); } else T = false;
+                if (TB_Password.Text == Password) { Main.Nickname = Nickname; Hide(); new Main().ShowDialog(); } else T = false;
             }
             else T = false; if (T == false) MessageBox.Show("Неверные данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
