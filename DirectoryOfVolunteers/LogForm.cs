@@ -10,11 +10,12 @@ using System.Windows.Forms;
 
 namespace DirectoryOfVolunteers
 {
-    public partial class Form1 : Form
+    public partial class LogForm : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-        }
+        public LogForm() => InitializeComponent();
+
+        public DataGridView DA;
+
+        private void LogForm_Load(object sender, EventArgs e) => DA = dataGridView1;
     }
 }
