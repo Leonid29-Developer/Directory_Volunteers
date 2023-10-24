@@ -29,59 +29,60 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            this.SplitContainer = new System.Windows.Forms.SplitContainer();
+            this.Table = new System.Windows.Forms.TableLayoutPanel();
+            ((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).BeginInit();
+            this.SplitContainer.Panel1.SuspendLayout();
+            this.SplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
-            // splitContainer1
+            // SplitContainer
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
+            this.SplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SplitContainer.IsSplitterFixed = true;
+            this.SplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.SplitContainer.Name = "SplitContainer";
             // 
-            // splitContainer1.Panel1
+            // SplitContainer.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 450);
-            this.splitContainer1.SplitterDistance = 266;
-            this.splitContainer1.TabIndex = 0;
+            this.SplitContainer.Panel1.Controls.Add(this.Table);
+            this.SplitContainer.Size = new System.Drawing.Size(884, 561);
+            this.SplitContainer.SplitterDistance = 350;
+            this.SplitContainer.SplitterIncrement = 2;
+            this.SplitContainer.TabIndex = 0;
             // 
-            // tableLayoutPanel1
+            // Table
             // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(266, 450);
-            this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
+            this.Table.ColumnCount = 1;
+            this.Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.Table.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Table.Location = new System.Drawing.Point(0, 0);
+            this.Table.Name = "Table";
+            this.Table.RowCount = 1;
+            this.Table.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.Table.Size = new System.Drawing.Size(350, 561);
+            this.Table.TabIndex = 0;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.splitContainer1);
+            this.ClientSize = new System.Drawing.Size(884, 561);
+            this.Controls.Add(this.SplitContainer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.Load += new System.EventHandler(this.Main_Load);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.SplitContainer.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).EndInit();
+            this.SplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.SplitContainer SplitContainer;
+        private System.Windows.Forms.TableLayoutPanel Table;
     }
 }
