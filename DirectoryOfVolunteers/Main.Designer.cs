@@ -46,7 +46,7 @@
             // SplitContainer.Panel1
             // 
             this.SplitContainer.Panel1.Controls.Add(this.Table);
-            this.SplitContainer.Size = new System.Drawing.Size(884, 561);
+            this.SplitContainer.Size = new System.Drawing.Size(884, 711);
             this.SplitContainer.SplitterDistance = 350;
             this.SplitContainer.SplitterIncrement = 2;
             this.SplitContainer.TabIndex = 0;
@@ -60,14 +60,14 @@
             this.Table.Name = "Table";
             this.Table.RowCount = 1;
             this.Table.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.Table.Size = new System.Drawing.Size(350, 561);
+            this.Table.Size = new System.Drawing.Size(350, 711);
             this.Table.TabIndex = 0;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 561);
+            this.ClientSize = new System.Drawing.Size(884, 711);
             this.Controls.Add(this.SplitContainer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";

@@ -14,10 +14,9 @@ namespace DirectoryOfVolunteers
     public partial class Main : Form
     {
         public Main() => InitializeComponent();
-
-        private List<UserData> Users = new List<UserData>();
-
         public static string Nickname { get; set; }
+
+        private List<UserData> Users = new List<UserData>(); private bool Clubs_Sections = false; private int ShowUserID = -1; 
 
         private void Main_Load(object sender, EventArgs e)
         {
@@ -27,14 +26,14 @@ namespace DirectoryOfVolunteers
                 SQL_Connection.Open();
                 string Request = $"EXEC [DirectoryOfVolunteers].[dbo].[UserData_ALL]"; // SQL-запрос
                 SqlCommand Command = new SqlCommand(Request, SQL_Connection); SqlDataReader Reader = Command.ExecuteReader();
-                while (Reader.Read()) Users.Add(new UserData((string)Reader.GetValue(0), (byte[])Reader.GetValue(1), (string)Reader.GetValue(2)));
+                while (Reader.Read()) Users.Add(new UserData((string)Reader.GetValue(0), (byte[])Reader.GetValue(1), (string)Reader.GetValue(2), (string)Reader.GetValue(3), (string)Reader.GetValue(4)));
                 SQL_Connection.Close();
             }
 
             //Установка главной формы
             Panel P = new Panel { Name = Nickname }; P.Click += UserChanged;
 
-            //Вывод данных в список волонтеров
+            //Генерация списка волонтеров
             Table.Controls.Clear(); Table.AutoScroll = false; Table.AutoScroll = true; Table.HorizontalScroll.Visible = false;
 
             for (int CountUser = 0; CountUser < Users.Count; CountUser++)
@@ -70,7 +69,86 @@ namespace DirectoryOfVolunteers
             //}
         }
 
-        private void UserChanged(object sender, EventArgs e) { }
+        private void UserChanged(object sender, EventArgs e)
+        {
+            SplitContainer.Panel2.Controls.Clear();
+            var Element_Panel = new Panel(); var Element_PictureBox = new PictureBox(); var Element_Label = new Label();
+
+            switch (sender.GetType().ToString())
+            {
+                case "System.Windows.Forms.Panel": Element_Panel = (Panel)sender; break;
+                case "System.Windows.Forms.PictureBox": Element_PictureBox = (PictureBox)sender; break;
+                case "System.Windows.Forms.Label": Element_Label = (Label)sender; break;
+            }
+
+            //Создание элементов
+            {
+                if (Element_Panel.Name != "" | Element_PictureBox.Name != "" | Element_Label.Name != "") for (int i = 0; i < Users.Count; i++)
+                {
+                    if (Element_Panel != null) if (Users[i].Nickname == Element_Panel.Name) ShowUserID = i;
+                    if (Element_PictureBox != null) if (Users[i].Nickname == Element_PictureBox.Name) ShowUserID = i;
+                    if (Element_Label != null) if (Users[i].Nickname == Element_Label.Name) ShowUserID = i;
+                }
+
+                //Аватарка
+                PictureBox Picture = new PictureBox { BorderStyle = BorderStyle.Fixed3D, BackgroundImageLayout = ImageLayout.Stretch, Size = new Size((int)((float)SplitContainer.Panel2.Width / 2), (int)((float)SplitContainer.Panel2.Width / 2)), Top = 15, Left = 15 };
+                using (MemoryStream MS = new MemoryStream(Users[ShowUserID].ProfilePicture, 0, Users[ShowUserID].ProfilePicture.Length)) { MS.Write(Users[ShowUserID].ProfilePicture, 0, Users[ShowUserID].ProfilePicture.Length); Picture.BackgroundImage = Image.FromStream(MS, true, true); }
+
+                //Ник
+                Label Nick = new Label { Text = Users[ShowUserID].Nickname, AutoSize = false, Size = new Size((int)((float)SplitContainer.Panel2.Width / 2 - 35), 50), /*BorderStyle = BorderStyle.FixedSingle,*/ Font = new Font("Times New Roman", 18,FontStyle.Underline), TextAlign = ContentAlignment.MiddleCenter, Top = 25, Left = (int)((float)SplitContainer.Panel2.Width / 2) + 25 };
+
+                //ФИО
+                Label Heading_FIO = new Label { Text = "Фамилия Имя Отчество", AutoSize = false, Size = new Size((int)((float)SplitContainer.Panel2.Width / 2 - 45), 20), /*BorderStyle = BorderStyle.FixedSingle,*/ Font = new Font("Times New Roman", 10), ForeColor = Color.DarkOrange, TextAlign = ContentAlignment.MiddleLeft, Top = 90, Left = (int)((float)SplitContainer.Panel2.Width / 2) + 30 };
+                Label FIO = new Label { Text = Users[ShowUserID].FIO, AutoSize = false, Size = new Size((int)((float)SplitContainer.Panel2.Width / 2 - 45), 30), /*BorderStyle = BorderStyle.FixedSingle,*/ Font = new Font("Times New Roman", 11), TextAlign = ContentAlignment.MiddleLeft, Top = 110, Left = (int)((float)SplitContainer.Panel2.Width / 2) + 30 };
+
+                //Должность
+                Label Heading_Position = new Label { Text = "Должность", AutoSize = false, Size = new Size((int)((float)SplitContainer.Panel2.Width / 2 - 45), 20), /*BorderStyle = BorderStyle.FixedSingle,*/ Font = new Font("Times New Roman", 10), ForeColor = Color.DarkOrange, TextAlign = ContentAlignment.MiddleLeft, Top = 150, Left = (int)((float)SplitContainer.Panel2.Width / 2) + 30 };
+                Label Position = new Label { Text = Users[ShowUserID].Position, AutoSize = false, Size = new Size((int)((float)SplitContainer.Panel2.Width / 2 - 45), 30), /*BorderStyle = BorderStyle.FixedSingle,*/ Font = new Font("Times New Roman", 11), TextAlign = ContentAlignment.MiddleLeft, Top = 170, Left = (int)((float)SplitContainer.Panel2.Width / 2) + 30 };
+
+                //Клубы и Секции
+                if (Clubs_Sections == true)
+                {
+                    List<string> CS = new List<string>(); if (Users[ShowUserID].Clubs_Sections.Contains(" ")) { string[] D = Users[ShowUserID].Clubs_Sections.Split(' '); foreach (string User in D) CS.Add(User); } else CS.Add(Users[ShowUserID].Clubs_Sections);
+
+                    Panel Head = new Panel { Size = new Size((int)((float)SplitContainer.Panel2.Width / 4 * 3), 54+47*(int)Math.Ceiling((double)CS.Count / 2)),BorderStyle = BorderStyle.FixedSingle, Top = (int)((float)SplitContainer.Panel2.Width / 2) + 30, Left = (int)((float)SplitContainer.Panel2.Width / 8) };
+                    {
+                        Label Heading_ClubsSections = new Label { Text = "Клубы и Секции\n▲", AutoSize = false, Size = new Size(Head.Width - 4, 44), BorderStyle = BorderStyle.FixedSingle, Font = new Font("Times New Roman", 12), TextAlign = ContentAlignment.MiddleCenter, Top = 1, Left = 1 };
+                        Heading_ClubsSections.Click += ClubsSections_ShowOrHide; Head.Controls.Add(Heading_ClubsSections); SplitContainer.Panel2.Controls.Add(Head);
+
+                        TableLayoutPanel Tab = new TableLayoutPanel { Size = new Size(Head.Width - 4, Head.Height - 49), ColumnCount = 2, CellBorderStyle = TableLayoutPanelCellBorderStyle.OutsetDouble, BorderStyle = BorderStyle.FixedSingle, Top = 46, Left = 1 }; Head.Controls.Add(Tab);
+                        {
+                            foreach (string ClubsSections_ID in CS)
+                            {
+                                //Загрузка данных
+                                using (SqlConnection SQL_Connection = new SqlConnection(Authorization.ConnectString))
+                                {
+                                    SQL_Connection.Open();
+                                    string Request = $"EXEC [DirectoryOfVolunteers].[dbo].[Clubs and Sections_ID] @CS_ID = '{ClubsSections_ID}'"; // SQL-запрос
+                                    SqlCommand Command = new SqlCommand(Request, SQL_Connection); SqlDataReader Reader = Command.ExecuteReader();
+                                    while (Reader.Read())
+                                    {
+                                        Label ClubsSections = new Label { Margin = new Padding(0, 0, 0, 0), BorderStyle = BorderStyle.FixedSingle,Text = (string)Reader.GetValue(0), AutoSize = false, Size = new Size((int)(float)(Tab.Width/2)-5, 44), Font = new Font("Times New Roman", 11), ForeColor = Color.DarkOrchid, TextAlign = ContentAlignment.MiddleCenter };
+                                        Tab.Controls.Add(ClubsSections); MessageBox.Show(Head.Width+"\n"+Tab.Width + "\n" + ClubsSections.Width);
+                                    }
+                                    SQL_Connection.Close();
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Label Heading_ClubsSections = new Label { Text = "Клубы и Секции\n▼", AutoSize = false, Size = new Size((int)((float)SplitContainer.Panel2.Width / 4 * 3), 44), BorderStyle = BorderStyle.FixedSingle, Font = new Font("Times New Roman", 12), TextAlign = ContentAlignment.MiddleCenter, Top = (int)((float)SplitContainer.Panel2.Width / 2) + 30, Left = (int)((float)SplitContainer.Panel2.Width / 8) };
+                    Heading_ClubsSections.Click += ClubsSections_ShowOrHide; SplitContainer.Panel2.Controls.Add(Heading_ClubsSections);
+                }
+
+                SplitContainer.Panel2.Controls.Add(Picture); SplitContainer.Panel2.Controls.Add(Nick); SplitContainer.Panel2.Controls.Add(Heading_FIO); SplitContainer.Panel2.Controls.Add(FIO);
+                SplitContainer.Panel2.Controls.Add(Heading_Position); SplitContainer.Panel2.Controls.Add(Position);
+            }
+        }
+
+        private void ClubsSections_ShowOrHide(object sender, EventArgs e) 
+        { if (Clubs_Sections == true) Clubs_Sections = false; else Clubs_Sections = true; UserChanged(sender, e); }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e) => System.Windows.Forms.Application.OpenForms["Authorization"].Show();
     }
