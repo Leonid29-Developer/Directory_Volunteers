@@ -31,8 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.SplitContainer = new System.Windows.Forms.SplitContainer();
             this.Table = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).BeginInit();
             this.SplitContainer.Panel1.SuspendLayout();
+            this.SplitContainer.Panel2.SuspendLayout();
             this.SplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +48,10 @@
             // SplitContainer.Panel1
             // 
             this.SplitContainer.Panel1.Controls.Add(this.Table);
+            // 
+            // SplitContainer.Panel2
+            // 
+            this.SplitContainer.Panel2.Controls.Add(this.label1);
             this.SplitContainer.Size = new System.Drawing.Size(884, 711);
             this.SplitContainer.SplitterDistance = 350;
             this.SplitContainer.SplitterIncrement = 2;
@@ -63,6 +69,17 @@
             this.Table.Size = new System.Drawing.Size(350, 711);
             this.Table.TabIndex = 0;
             // 
+            // label1
+            // 
+            this.label1.AutoEllipsis = true;
+            this.label1.Location = new System.Drawing.Point(193, 447);
+            this.label1.Name = "label1";
+            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label1.Size = new System.Drawing.Size(37, 30);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "label1ytrhrghrthrth";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -74,6 +91,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.Load += new System.EventHandler(this.Main_Load);
             this.SplitContainer.Panel1.ResumeLayout(false);
+            this.SplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).EndInit();
             this.SplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -84,5 +102,6 @@
 
         private System.Windows.Forms.SplitContainer SplitContainer;
         private System.Windows.Forms.TableLayoutPanel Table;
+        private System.Windows.Forms.Label label1;
     }
 }
